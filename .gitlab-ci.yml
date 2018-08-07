@@ -1,3 +1,6 @@
+before_script:
+  - cd builds/harshit1810/simpleds.js
+  - npm install --silent
 
 stages:
   - test
