@@ -1,0 +1,14 @@
+
+stages:
+  - test
+  - build
+
+run_tests:
+  script:
+    - npm test
+  stage: test
+
+build:
+  script:
+    - npm run build
+  stage: build

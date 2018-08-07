@@ -1,0 +1,40 @@
+{
+  "name": "simpleds.js",
+  "version": "1.0.0",
+  "description": "implementing data structures using javascript es5",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --recursive \"test/*.js\"",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshit1810/simpleds.js.git"
+  },
+  "keywords": [
+    "js",
+    "linked",
+    "list",
+    "linked list",
+    "vanilla",
+    "javascript",
+    "es5",
+    "data",
+    "data structures",
+    "simple"
+  ],
+  "author": "Harshit Srivastava",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/harshit1810/simpleds.js/issues"
+  },
+  "homepage": "https://github.com/harshit1810/simpleds.js#readme",
+  "devDependencies": {
+    "chai": "4.1.2",
+    "clean-webpack-plugin": "0.1.19",
+    "mocha": "5.2.0",
+    "uglifyjs-webpack-plugin": "1.2.7",
+    "webpack": "4.16.4",
+    "webpack-cli": "3.1.0"
+  }
+}
