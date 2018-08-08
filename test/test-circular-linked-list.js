@@ -15,11 +15,9 @@ describe('Tests for Circular Linked List', function () {
     });
 
     it('should create a new node with value as zero when value is not provided', function () {
-        try {
-            new Node();
-        } catch (error) {
-            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
-        }
+        var node = new Node();
+        sharedTestUtil.shouldBeValidCircularLinkedNode(node);
+        expect(node.getValue()).to.be.equal(0);
     });
 
     it('should not append node with an invalid value', function () {

@@ -18,11 +18,9 @@ describe('Tests for Singly Linked List', function () {
     });
 
     it('create a new node with value as zero when value is not provided', function () {
-        try {
-            new Node();
-        } catch (error) {
-            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
-        }
+        var node = new Node();
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(node);
+        expect(node.getValue()).to.be.equal(0);
     });
 
     it('create a new linked list', function () {
