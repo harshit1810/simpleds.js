@@ -2,7 +2,9 @@
 A simple framework written in JavaScript ES5 which provides basic data-stuctures.
 
 ## Installing
-`npm install simpleds.js`
+Inside your node project
+
+`npm install git+https://github.com/harshit1810/simpleds.js.git`
 
 ## Usage
 **in nodejs**
