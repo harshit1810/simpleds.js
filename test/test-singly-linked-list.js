@@ -1,10 +1,10 @@
 var expect = require('chai').expect;
-var assert = require('chai').assert;
 //var main = require('../lib/index');
 var SinglyLinkedList = require('../lib/index').SinglyLinkedList;
 var util = require('../lib/singly-linked-list/util');
 var Node = util.LinkedListNode;
-var invalidNodeValues = [undefined, Infinity, -Infinity, Symbol(), {}, function () { }];
+var invalidNodeValues = [Infinity, -Infinity, Symbol(), {}, function () { }];
+var sharedTestUtil = require('./shared')(expect);
 
 describe('Tests for Singly Linked List', function () {
 
@@ -17,13 +17,14 @@ describe('Tests for Singly Linked List', function () {
         expect(node).to.be.an.instanceof(Node);
     });
 
-    it('do not create a new node when value is not provided', function () {
+    it('create a new node with value as zero when value is not provided', function () {
         try {
-            new Node(null);
+            new Node();
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
+
     it('create a new linked list', function () {
         var list = new SinglyLinkedList();
         expect(list).to.not.be.undefined;
@@ -43,9 +44,9 @@ describe('Tests for Singly Linked List', function () {
     it('add valid node to end of list', function () {
         var list = new SinglyLinkedList();
         var addedNode = list.append(1);
-        shouldBeValidNode(addedNode);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(addedNode);
         addedNode = list.append('A');
-        shouldBeValidNode(addedNode);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(addedNode);
     });
 
     it('should not append node with an invalid value', function () {
@@ -57,7 +58,7 @@ describe('Tests for Singly Linked List', function () {
             }
             passed = true;
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         } finally {
             expect(passed).to.be.false;
         }
@@ -68,8 +69,8 @@ describe('Tests for Singly Linked List', function () {
         for (var i = 1; i < 10; i++) {
             list.append(i);
         }
-        var node = list.getNodeAt(7);
-        shouldBeValidNode(node);
+        var node = list.nodeAt(7);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(node);
         expect(node.getValue()).to.equal(7);
     });
 
@@ -79,9 +80,9 @@ describe('Tests for Singly Linked List', function () {
             list.append(i);
         }
         try {
-            list.getNodeAt(null);
+            list.nodeAt(null);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -97,7 +98,7 @@ describe('Tests for Singly Linked List', function () {
         list.append(3);
         list.append(2);
         var last = list.getLastNode();
-        shouldBeValidNode(last);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(last);
         expect(last.getValue()).to.equal(2);
     });
 
@@ -114,14 +115,14 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.shift();
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
     it('add a valid node to the beginning of the list', function () {
         var list = new SinglyLinkedList();
         var node = list.unshift(1);
-        shouldBeValidNode(node);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(node);
     });
 
     it('throw error if adding a invalid node value to the beginning of the list', function () {
@@ -154,7 +155,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.pop();
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -164,9 +165,9 @@ describe('Tests for Singly Linked List', function () {
         list.append(4);
         list.append(6);
         var addedNode = list.insertAt(3, 0);
-        shouldBeValidNode(addedNode);
-        var node = list.getNodeAt(3);
-        shouldBeValidNode(node);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(addedNode);
+        var node = list.nodeAt(3);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(node);
         expect(node.getValue()).to.equal(0);
     });
 
@@ -175,7 +176,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.insertAt(1, 1);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -186,7 +187,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.insertAt(2, new Number());
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -204,7 +205,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.removeAt(5);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -224,8 +225,8 @@ describe('Tests for Singly Linked List', function () {
         }
         expect(list.reverse(3, 5)).to.be.instanceof(SinglyLinkedList);
         expect(list.size()).to.be.equal(3);
-        expect(list.getNodeAt(1).getValue()).to.be.equal(5);
-        expect(list.getNodeAt(3).getValue()).to.be.equal(3);
+        expect(list.nodeAt(1).getValue()).to.be.equal(5);
+        expect(list.nodeAt(3).getValue()).to.be.equal(3);
     });
 
     it('should not detect loop in the list', function () {
@@ -253,7 +254,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.createLoop(0, 3);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -262,17 +263,8 @@ describe('Tests for Singly Linked List', function () {
     });
 
     it('successfully detect loop after introducing', function () {
-        var list = new SinglyLinkedList();
-        var list = new SinglyLinkedList();
-        for (var i = 1; i <= 10; i++) {
-            list.append(i);
-        }
-        var looped = list.createLoop(5, list.size());
-        expect(looped).to.be.instanceof(SinglyLinkedList);
-        var lastNode = looped.getNodeAt(10);
-        shouldBeValidNode(lastNode);
-        expect(lastNode.getNext()).to.be.equal(list.getNodeAt(5));
-        shouldBeValidNode(list.isLooped());
+        var list = insertLoopInList(5);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(list.isLooped());
     });
 
     it('introduce a loop and then remove it', function () {
@@ -307,10 +299,10 @@ describe('Tests for Singly Linked List', function () {
             list.append(i);
         }
         var fromEnd = list.findFromEnd(1);
-        shouldBeValidNode(fromEnd);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(fromEnd);
         expect(fromEnd.getValue()).to.be.equal(3);
         fromEnd = list.findFromEnd(3);
-        shouldBeValidNode(fromEnd);
+        sharedTestUtil.shouldBeValidSinglyLinkedNode(fromEnd);
         expect(fromEnd.getValue()).to.be.equal(1);
     });
 
@@ -322,7 +314,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.findFromEnd(0);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -334,7 +326,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.findFromEnd(5);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -351,7 +343,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.sort();
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -371,8 +363,8 @@ describe('Tests for Singly Linked List', function () {
             list.append(i);
         }
         list.swap(3, 4);
-        expect(list.getNodeAt(3).getValue()).to.be.equal(4);
-        expect(list.getNodeAt(4).getValue()).to.be.equal(3);
+        expect(list.nodeAt(3).getValue()).to.be.equal(4);
+        expect(list.nodeAt(4).getValue()).to.be.equal(3);
     });
 
     it('throw an error when swapping values at invalid positions', function () {
@@ -383,7 +375,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.swap(0, 4);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -395,7 +387,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.swap(3, 11);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -421,7 +413,7 @@ describe('Tests for Singly Linked List', function () {
         try {
             list.rotate(6);
         } catch (error) {
-            shouldBeError(error);
+            sharedTestUtil.shouldBeError(error, util.ERROR_NAME);
         }
     });
 
@@ -432,12 +424,15 @@ describe('Tests for Singly Linked List', function () {
         }
         list.rotate(2);
         expect(list).to.be.instanceof(SinglyLinkedList);
-        expect(list.getNodeAt(1).getValue()).to.be.equal(3);
-        expect(list.getNodeAt(8).getValue()).to.be.equal(10);
+        expect(list.nodeAt(1).getValue()).to.be.equal(3);
+        expect(list.nodeAt(8).getValue()).to.be.equal(10);
     });
 
     it('return string representation of the list', function () {
         var list = new SinglyLinkedList();
+        for (var i = 1; i <= 10; i++) {
+            list.append(i);
+        }
         var str = list.toString();
         expect(str).to.be.a('string');
         expect(str).to.have.lengthOf.above(3);
@@ -450,22 +445,8 @@ function insertLoopInList(index) {
     }
     var looped = list.createLoop(index, list.size());
     expect(looped).to.be.instanceof(SinglyLinkedList);
-    var lastNode = looped.getNodeAt(10);
-    shouldBeValidNode(lastNode);
-    expect(lastNode.getNext()).to.be.equal(list.getNodeAt(5));
+    var lastNode = looped.nodeAt(10);
+    sharedTestUtil.shouldBeValidSinglyLinkedNode(lastNode);
+    expect(lastNode.getNext()).to.be.equal(list.nodeAt(5));
     return list;
-}
-function shouldBeValidNode(node) {
-    expect(node).to.not.be.undefined;
-    expect(node).to.be.an.instanceof(Node);
-    expect(node).to.have.property('setValue');
-    expect(node).to.have.property('setNext');
-}
-function shouldBeError(error) {
-    expect(error).to.not.be.undefined;
-    expect(error).to.have.property('name');
-    expect(error).to.have.property('message');
-    expect(error.name).to.equal(util.ERROR_NAME);
-    expect(error.message).to.have.lengthOf.above(1);
-    expect(error).to.be.an.instanceof(Error);
 }
