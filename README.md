@@ -9,7 +9,7 @@ Inside your node project
 ## Usage
 **in nodejs**
 
-`const simpleds = require('simpleds.js');`
+`const Simpleds = require('simpleds.js');`
 
 **In browser**, use the file *main.js* inside *dist* folder
 
@@ -17,7 +17,7 @@ Inside your node project
 
 then, in your code
 
-`const simpleds = simpleds;`
+`const Simpleds = simpleds;`
 
 **Note:** The project is a work in progress, currently, only following data structures are available for use :
 - ### Singly Linked List
@@ -73,6 +73,8 @@ then, in your code
     - Fetch a node from a specified position.
     - Append a node to the list.
     - Remove node from a position.
+    - Clone the list.
+    - Josephus circle.
     - Get a string representation of the string (toString()).
 
 ## Test
