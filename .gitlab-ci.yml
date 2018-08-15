@@ -1,10 +1,15 @@
-before_script:
-  - npm install --silent
+image: node:6
 
 stages:
   - build
   - test
 
+install_dependencies:
+    stage: build
+    script: npm install
+    artifacts:
+        paths: node_modules/
+  
 run_build:
     stage: build
     script: npm run build
