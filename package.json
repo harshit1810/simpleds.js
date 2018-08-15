@@ -4,6 +4,7 @@
   "description": "implementing data structures using javascript es5",
   "main": "lib/index.js",
   "scripts": {
+	"start": "node lib/index",
     "test": "mocha --recursive \"test/*.js\"",
     "build": "webpack"
   },
@@ -33,6 +34,7 @@
     "chai": "4.1.2",
     "clean-webpack-plugin": "0.1.19",
     "mocha": "5.2.0",
+    "mocha-loader": "^1.1.3",
     "uglifyjs-webpack-plugin": "1.2.7",
     "webpack": "4.16.4",
     "webpack-cli": "3.1.0"
