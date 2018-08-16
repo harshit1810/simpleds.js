@@ -1,6 +1,6 @@
 image: node:6
 
-before_script: npm install
+before_script: ["npm install"]
 
 stages:
   - build
