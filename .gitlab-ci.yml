@@ -1,13 +1,12 @@
 image: node:6
 
-before_script: ["npm install"]
-
 stages:
   - build
   - test
   
 run_build:
     stage: build
+    before_script: ["npm install"]
     script: node_modules/.bin/webpack
   
 run_tests:
