@@ -7,12 +7,10 @@ stages:
 install_dependencies:
     stage: build
     script: npm install
-    artifacts:
-        paths: ["node_modules"]
   
 run_build:
     stage: build
-    script: npm run build
+    script: node_modules/.bin/webpack
   
 run_tests:
   stage: test
