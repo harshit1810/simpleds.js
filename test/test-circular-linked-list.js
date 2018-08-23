@@ -23,8 +23,8 @@ describe('Tests for Circular Linked List', function () {
         var list = new CircularLinkedList();
         var passed = false;
         try {
-            for (var value of invalidNodeValues) {
-                list.append(value);
+            for (var value in invalidNodeValues) {
+                list.append(invalidNodeValues[value]);
             }
             passed = true;
         } catch (error) {

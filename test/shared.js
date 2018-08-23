@@ -2,14 +2,19 @@ var expect = require('chai').expect;
 var library = require('../lib/index');
 var SinglyLinkedList = library.SinglyLinkedList;
 var CircularLinkedList = library.CircularLinkedList;
+var BinaryTree = library.BinaryTree;
 var SinglyLinkedNode = require('../lib/singly-linked-list/util').LinkedListNode;
 var CircularLinkedNode = require('../lib/circular-linked-list/util').CircularLinkedListNode;
+var BinaryTreeNode = require('../lib/binary-tree/util').BinaryTreeNode;
 
-function validNode(node, instanceOf) {
-    expect(node).to.not.be.undefined;
-    expect(node).to.have.property('setValue');
-    expect(node).to.have.property('setNext');
-    expect(node).to.be.an.instanceof(instanceOf);
+function validNode() {
+    expect(arguments[1]).to.not.be.undefined;
+    expect(arguments[1]).to.be.an.instanceof(arguments[0]);
+    var properties = Array.prototype.slice.call(arguments, 2);
+    var i = 0;
+    for (i = 0; i < properties.length; i++) {
+        expect(arguments[1]).to.have.property(properties[i]);
+    }
 }
 function shouldBeAnError(error, errorName) {
     expect(error).to.not.be.undefined;
@@ -22,7 +27,7 @@ function shouldBeAnError(error, errorName) {
 var test_cases_utils_for = {
     'SinglyLinkedList': {
         shouldBeValidNode: function (node) {
-            validNode(node, SinglyLinkedNode);
+            validNode(SinglyLinkedNode, node, 'setValue', 'getValue', 'setNext', 'getNext');
         },
         shouldBeError: shouldBeAnError,
         create: function (size, startAt) {
@@ -37,7 +42,7 @@ var test_cases_utils_for = {
     },
     'CircularLinkedList': {
         shouldBeValidNode: function (node) {
-            validNode(node, CircularLinkedNode);
+            validNode(CircularLinkedNode, node, 'setValue', 'getValue', 'setNext', 'getNext');
         },
         shouldBeError: shouldBeAnError,
         create: function (size, startAt) {
@@ -49,6 +54,12 @@ var test_cases_utils_for = {
             }
             return list;
         }
+    },
+    'BinaryTree': {
+        shouldBeValidNode: function (node) {
+            validNode(BinaryTreeNode, node, 'setLeft', 'setRight', 'getLeft', 'getRight');
+        },
+        shouldBeError: shouldBeAnError
     }
 };
 module.exports = function (instance) {
