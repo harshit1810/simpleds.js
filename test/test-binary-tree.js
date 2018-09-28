@@ -69,4 +69,25 @@ describe('Tests for Binary Tree', function () {
         expect(tree.traversal().levelOrder().split(/\s*/).join('')).to.be.equal('435');
     });
 
+    it('print inorder traversal', function () {
+        var tree = new BinaryTree();
+        tree.setRoot(1);
+        var root = tree.getRoot();
+        root.setLeft(2);
+        root.setRight(3);
+        root.getLeft().setLeft(4);
+        root.getLeft().setRight(5);
+        expect(tree.traversal().inorder().replace(/\s*/g, '')).to.be.equal('42513');
+    });
+
+    it('print preorder traversal', function () {
+        var tree = new BinaryTree();
+        tree.setRoot(1);
+        var root = tree.getRoot();
+        root.setLeft(2);
+        root.setRight(3);
+        root.getLeft().setLeft(4);
+        root.getLeft().setRight(5);
+        expect(tree.traversal().preorder().replace(/\s*/g, '')).to.be.equal('12453');
+    });
 });
